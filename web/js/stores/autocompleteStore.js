@@ -15,9 +15,7 @@ var users = [
 
 var AutocompleteStore = Reflux.createStore({
     getInitialState: function() {
-        return {
-            matchingList: []
-        };
+        return [];
     },
 
     listenables: AutocompleteActions,
@@ -27,9 +25,9 @@ var AutocompleteStore = Reflux.createStore({
             users.map(function (user){
                 if (pattern == user["name"].substr(0,pattern.length)) localList.push(user);
             });
-            this.trigger({matchingList: localList});
+            this.trigger(localList);
         } else {
-            this.trigger({matchingList: []});
+            this.trigger([]);
         }
     }
 });

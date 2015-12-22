@@ -8,7 +8,7 @@ var Panel = require('react-bootstrap').Panel;
 
 var App = React.createClass({
 
-        mixins: [Reflux.connect(AutocompleteStore, "store")],
+        mixins: [Reflux.connect(AutocompleteStore, "matchingList")],
 
         getInitialState: function () {
             return {
@@ -38,9 +38,9 @@ var App = React.createClass({
                                    onChange={this._onChangePattern} />
                         </div>
 
-                        <Panel collapsible expanded={this.state.store.matchingList.length > 0}>
+                        <Panel collapsible expanded={this.state.matchingList.length > 0}>
                             <ul>
-                                {this.state.store.matchingList.map((user, index) => {
+                                {this.state.matchingList.map((user, index) => {
                                    return <li key={index} onClick={this._onClickUser} >{user["name"]}</li>
                                 })}
                             </ul>
