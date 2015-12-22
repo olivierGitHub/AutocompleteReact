@@ -2,33 +2,36 @@ var Reflux = require('reflux');
 var AutocompleteActions = require('../actions/autocompleteActions.js');
 
 
-var matchingList=[];
-
+var users = [
+    {name:'terry',credentials:'user'},
+    {name:'andy',credentials:'admin'},
+    {name:'keneda',credentials:'user'},
+    {name:'andrew',credentials:'admin'},
+    {name:'terrence',credentials:'user'},
+    {name:'matt',credentials:'admin'},
+    {name:'matthieu',credentials:'user'},
+    {name:'matthew',credentials:'admin'}
+];
 
 var AutocompleteStore = Reflux.createStore({
-    listenables: AutocompleteActions,
-    init: function() {
-        this.users=[
-            {name:'terry',credentials:'user'},
-            {name:'andy',credentials:'admin'},
-            {name:'keneda',credentials:'user'},
-            {name:'andrew',credentials:'admin'},
-            {name:'terrence',credentials:'user'},
-            {name:'matt',credentials:'admin'},
-            {name:'matthieu',credentials:'user'},
-            {name:'matthew',credentials:'admin'}
-        ];
-        //this.matchingList=[''];
+    getInitialState: function() {
+        return {
+            matchingList: []
+        };
     },
+
+    listenables: AutocompleteActions,
     onGetMatchingList: function (pattern) {
-            this.users.map(function (user){
-                if (pattern == user["name"].substr(0,pattern.length)) {
-                    matchingList.push(user);
-                    console.log(user);
-                }});
-            this.trigger(matchingList);
-            matchingList=[];
+        if(pattern.length > 2) {
+            var localList = []
+            users.map(function (user){
+                if (pattern == user["name"].substr(0,pattern.length)) localList.push(user);
+            });
+            this.trigger({matchingList: localList});
+        } else {
+            this.trigger({matchingList: []});
         }
+    }
 });
 
 module.exports = AutocompleteStore;

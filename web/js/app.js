@@ -8,36 +8,21 @@ var Panel = require('react-bootstrap').Panel;
 
 var App = React.createClass({
 
-        mixins: [Reflux.connect(AutocompleteStore, "matchingList")],
+        mixins: [Reflux.connect(AutocompleteStore, "store")],
+
         getInitialState: function () {
             return {
-                matchingList: AutocompleteStore.matchingList,
                 displayCredentials: true,
-                credentialsOfUser: true,
-                open:false,
-                pattern:''
+                credentialsOfUser: true
             }
         },
         _onChangePattern: function (e)  {
-            e.preventDefault();
-            this.setState({pattern: e.target.value});
-            if (this.state.pattern.length > 2){
-                AutocompleteActions.getMatchingList(this.state.pattern);
-                this.setState({ open: true })
-            }else{
-                console.log('pattern too short');
-                this.setState({ open: false })
-            }
-            console.log(this.state.matchingList);
-            console.log(this.state.displayCredentials);
+            var value = e.target.value;
+            AutocompleteActions.getMatchingList(value);
         },
         _onClickUser: function () {
             this.setState({ displayCredentials: true });
             this.setState({ credentialsOfUser: true });
-            this.setState({ open: false });
-            this.setState({ matchingList: [] });
-            console.log(this.state.matchingList);
-            console.log(this.state.displayCredentials);
         },
         render: function () {
 
@@ -53,9 +38,12 @@ var App = React.createClass({
                                    onChange={this._onChangePattern} />
                         </div>
 
-                        <Panel collapsible expanded={this.state.open}>
-                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
-                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
+                        <Panel collapsible expanded={this.state.store.matchingList.length > 0}>
+                            <ul>
+                                {this.state.store.matchingList.map(function (user) {
+                                   return <li>{user["name"]}</li>
+                                })}
+                            </ul>
                         </Panel>
 
                         <div>
