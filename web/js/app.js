@@ -6,6 +6,21 @@ var AutocompleteStore = require('./stores/autocompleteStore.js');
 var CheckBoxCredentials = require('./components/checkboxCredentials.js');
 var Panel = require('react-bootstrap').Panel;
 
+function debounce(func, wait, immediate) {
+    var timeout;
+    return (function(){
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    })
+};
+
 var App = React.createClass({
 
         mixins: [Reflux.connect(AutocompleteStore, "matchingList")],
@@ -18,7 +33,9 @@ var App = React.createClass({
         },
         _onChangePattern: function (e)  {
             var value = e.target.value;
-            AutocompleteActions.getMatchingList(value);
+            debounce(function() {
+                AutocompleteActions.getMatchingList(value);
+            }, 250);
         },
         _onClickUser: function () {
             this.setState({ displayCredentials: true });
