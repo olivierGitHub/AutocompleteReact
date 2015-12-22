@@ -19,11 +19,11 @@ var App = React.createClass({
             }
         },
         _onChangePattern: function (e)  {
-
+            e.preventDefault();
             this.setState({pattern: e.target.value});
-            if (this.state.pattern.length > 1){
+            if (this.state.pattern.length > 2){
                 AutocompleteActions.getMatchingList(this.state.pattern);
-                this.setState({ open: !this.state.open })
+                this.setState({ open: true })
             }else{
                 console.log('pattern too short');
             }
@@ -31,9 +31,10 @@ var App = React.createClass({
             console.log(this.displayCredentials);
         },
         _onClickUser: function () {
-            this.displayCredentials = true;
-            this.matchingList=[];
-            this.credentialsOfUser= true;
+            this.setState({ displayCredentials: true });
+            this.setState({ credentialsOfUser: true });
+            this.setState({ open: true });
+            this.setState({ matchingList: [] });
             console.log(this.matchingList);
             console.log(this.displayCredentials);
         },
@@ -61,22 +62,6 @@ module.exports = App;
 
 ReactDom.render(<App />, document.getElementById('app'));
 
-
-/*<form>
- <input type="text"
- placeholder="user"
- value={this.state.pattern}
- onChange={this._onChangePattern}
- data-toggle="collapse"
- data-target="#matching"
- />
- <div id="matching" className="collapse">
- hello
- </div>
- <div>
- { this.state.displayCredentials ? <CheckBoxCredentials admin={this.credentialsOfUser} /> : null }
- </div>
- </form>*/
 /*
 <ul>
  {this.state.matchingList.map(function (user) {
