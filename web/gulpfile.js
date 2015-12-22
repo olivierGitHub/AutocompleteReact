@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
-//var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -18,10 +17,7 @@ gulp.task('build-js', function () {
         .pipe(source('bundle.js'))
         .pipe(rename('essai.js'))
         .pipe(gulp.dest('./load'));
-    // .pipe(buffer())
-    // .pipe(uglify())
-    // .pipe(rename('adapteach.min.js'))
-    // .pipe(gulp.dest('./public/javascripts/'));
+
 });
 
 gulp.task('watch-js', function() {
