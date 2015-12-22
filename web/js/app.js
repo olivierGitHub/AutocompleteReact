@@ -12,8 +12,8 @@ var App = React.createClass({
 
         getInitialState: function () {
             return {
-                displayCredentials: true,
-                credentialsOfUser: true
+                displayCredentials: false,
+                credentialsOfUser: false
             }
         },
         _onChangePattern: function (e)  {
@@ -40,8 +40,8 @@ var App = React.createClass({
 
                         <Panel collapsible expanded={this.state.store.matchingList.length > 0}>
                             <ul>
-                                {this.state.store.matchingList.map(function (user) {
-                                   return <li>{user["name"]}</li>
+                                {this.state.store.matchingList.map((user, index) => {
+                                   return <li key={index} onClick={this._onClickUser} >{user["name"]}</li>
                                 })}
                             </ul>
                         </Panel>

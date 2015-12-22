@@ -6,7 +6,7 @@ var CheckBoxCredentials = React.createClass({
         return (
             <div>
                 <label>Admin</label>
-                <input id="checkadmin" type="checkbox" checked={this.props.admin} onChange={this.onChange} />
+                <input id="checkadmin" type="checkbox" defaultChecked={this.props.admin} onChange={this.onChange} />
             </div>
         );
     }
