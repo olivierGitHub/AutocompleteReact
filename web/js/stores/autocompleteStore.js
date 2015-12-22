@@ -18,7 +18,7 @@ var AutocompleteStore = Reflux.createStore({
             {name:'matthieu',credentials:'user'},
             {name:'matthew',credentials:'admin'}
         ];
-        //this.matchingList=[''];
+        this.trigger(matchingList);
     },
     onGetMatchingList: function (pattern) {
             this.users.map(function (user){

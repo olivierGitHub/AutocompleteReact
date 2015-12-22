@@ -20,14 +20,20 @@ var App = React.createClass({
         },
         _onChangePattern: function (e)  {
             e.preventDefault();
-            this.setState({pattern: e.target.value});
-            if (this.state.pattern.length > 2){
-                AutocompleteActions.getMatchingList(this.state.pattern);
+            var value = e.target.value;
+            console.log(e.target.value);
+
+            this.setState({pattern: value});
+
+            if (value.length > 2){
+                AutocompleteActions.getMatchingList(value);
                 this.setState({ open: true })
-            }else{
+            }else if (value.length <= 2){
                 console.log('pattern too short');
-                this.setState({ open: false })
+                this.setState({ open: false });
+                this.setState({ matchingList: [] });
             }
+
             console.log(this.state.matchingList);
             console.log(this.state.displayCredentials);
         },
@@ -54,8 +60,15 @@ var App = React.createClass({
                         </div>
 
                         <Panel collapsible expanded={this.state.open}>
-                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
-                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
+                            {typeof this.state.matchingList !== "undefined" ?
+                            <ul>
+                                {this.state.matchingList.map(function (user) {
+                                    return (
+                                        <li>{user["name"]}</li>
+                                    );
+                                })}
+                            </ul>
+                                : null }
                         </Panel>
 
                         <div>

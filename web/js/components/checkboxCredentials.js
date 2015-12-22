@@ -12,5 +12,4 @@ var CheckBoxCredentials = React.createClass({
     }
 });
 
-
 module.exports = CheckBoxCredentials;
