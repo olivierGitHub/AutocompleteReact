@@ -37,7 +37,6 @@ var App = React.createClass({
             console.log(this.matchingList);
             console.log(this.displayCredentials);
         },
-
         render: function () {
             return (
                 <form>
@@ -47,13 +46,8 @@ var App = React.createClass({
                            onChange={this._onChangePattern}
                     />
                     <Panel collapsible expanded={this.state.open}>
-                        <ul>
-                            {this.state.matchingList.map(function (user) {
-                                return (
-                                    <li onClick={this._onClickUser}>{user["name"]}</li>
-                                );
-                            })}
-                        </ul>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                     </Panel>
                     <div>
                         { this.state.displayCredentials ? <CheckBoxCredentials admin={this.credentialsOfUser} /> : null }
