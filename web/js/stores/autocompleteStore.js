@@ -26,7 +26,6 @@ var AutocompleteStore = Reflux.createStore({
                     matchingList.push(user);
                     console.log(user);
                 }});
-            console.log(matchingList);
             this.trigger(matchingList);
             matchingList=[];
         }

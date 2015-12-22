@@ -26,37 +26,48 @@ var App = React.createClass({
                 this.setState({ open: true })
             }else{
                 console.log('pattern too short');
+                this.setState({ open: false })
             }
-            console.log(this.matchingList);
-            console.log(this.displayCredentials);
+            console.log(this.state.matchingList);
+            console.log(this.state.displayCredentials);
         },
         _onClickUser: function () {
             this.setState({ displayCredentials: true });
             this.setState({ credentialsOfUser: true });
-            this.setState({ open: true });
+            this.setState({ open: false });
             this.setState({ matchingList: [] });
-            console.log(this.matchingList);
-            console.log(this.displayCredentials);
+            console.log(this.state.matchingList);
+            console.log(this.state.displayCredentials);
         },
         render: function () {
+
             return (
-                <form>
-                    <input type="text"
-                           placeholder="user"
-                           value={this.state.pattern}
-                           onChange={this._onChangePattern}
-                    />
-                    <Panel collapsible expanded={this.state.open}>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                    </Panel>
-                    <div>
-                        { this.state.displayCredentials ? <CheckBoxCredentials admin={this.credentialsOfUser} /> : null }
-                    </div>
-                </form>
+                <div className="form-group container" >
+                    <form>
+                        <div className="form-group container" >
+                            <label >Nom:</label>
+                            <input type="text"
+                                   className="form-control"
+                                   placeholder="user"
+                                   value={this.state.pattern}
+                                   onChange={this._onChangePattern} />
+                        </div>
+
+                        <Panel collapsible expanded={this.state.open}>
+                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
+                            Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.Anim pariatur cliche  wes anderson cred nesciunt sapiente ea proident.
+                        </Panel>
+
+                        <div>
+                            { this.state.displayCredentials ? <CheckBoxCredentials admin={this.state.credentialsOfUser} /> : null }
+                        </div>
+                    </form>
+
+                </div>
         )
     }
 });
+
 
 module.exports = App;
 
@@ -70,3 +81,12 @@ ReactDom.render(<App />, document.getElementById('app'));
  );
  })}
  </ul>*/
+
+/*<div>
+ { this.state.open ?
+ <ul>
+ {this.state.matchingList.map(function (user) {
+ return (
+ <li onClick={this._onClickUser}>{user["name"]}</li>
+ );
+ })}*/
